@@ -35,4 +35,66 @@ module.exports = class Door {
   static CloseAndLocked(key) {
     return new Door(key, false, true, false, true);
   }
+
+  Open() {
+    if (this.isOpen) throw new Error('The door is already open.');
+
+    this.isOpen = true;
+    this.isClosed = false;
+
+    return {
+      "isOpen": this.isOpen,
+      "isClosed": this.isClosed,
+      "isUnlocked": this.isUnlocked,
+      "isLocked": this.isLocked,
+      "key": this.key
+    }
+  }
+
+  Close() {
+    console.log(this.isClosed);
+    if (this.isClosed) throw new Error('The door is already closed.');
+
+    this.isOpen = false;
+    this.isClosed = true;
+
+    return {
+      "isOpen": this.isOpen,
+      "isClosed": this.isClosed,
+      "isUnlocked": this.isUnlocked,
+      "isLocked": this.isLocked,
+      "key": this.key
+    }
+  }
+
+  Lock() {
+    if (this.isLocked) throw new Error('The door is already locked.');
+
+    this.isLocked = true;
+    this.isUnlocked = false;
+
+    return {
+      "isOpen": this.isOpen,
+      "isClosed": this.isClosed,
+      "isUnlocked": this.isUnlocked,
+      "isLocked": this.isLocked,
+      "key": this.key
+    }
+  }
+
+  Unlock(key) {
+    if (key !== this.key) throw new Error('The keys do not match.');
+    if (this.isUnlocked) throw new Error('The door is already unlocked.');
+
+    this.isLocked = false;
+    this.isUnlocked = true;
+
+    return {
+      "isOpen": this.isOpen,
+      "isClosed": this.isClosed,
+      "isUnlocked": this.isUnlocked,
+      "isLocked": this.isLocked,
+      "key": this.key
+    }
+  }
 }
